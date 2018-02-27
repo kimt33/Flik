@@ -16,7 +16,7 @@ def check_input(var, func, grad, direction, alpha):
     direction: np.ndarray((N,1)) for N variables
         Direction vector for next step
     alpha: float
-        Scaling factor
+        Step length
 
     Raises:
     -------
