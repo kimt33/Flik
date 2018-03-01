@@ -39,7 +39,7 @@ def check_input(*, var=None, direction=None, alpha=None,
         If var and direction do not have the same shape.
         If var and grad_val do not have the same shape.
         If direction and grad_val do not have the same shape.
-.
+
     """
     if var is None:
         pass

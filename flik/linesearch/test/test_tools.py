@@ -1,19 +1,11 @@
 """Test for flik.linesearch.input."""
 import numpy as np
 from nose.tools import assert_raises
-from flik.linesearch.input import check_input
+from flik.linesearch.tools import check_input
 
 
 def test_input_control():
     """Test linesearch.input.check_input."""
-    def func(var):
-        r"""Function :math:`\sum_i x_i^2`"""
-        return np.sum(var**2)
-
-    def grad(var):
-        r"""Gradient of sum_square :math:`\nabla f(x)`"""
-        return 2*var
-
     # check var
     assert_raises(TypeError, check_input, var=[1])
     assert_raises(TypeError, check_input, var=np.array([[1, 2]]))
@@ -27,7 +19,7 @@ def test_input_control():
 
     # check grad
     assert_raises(TypeError, check_input, grad='1')
-    check_input(func=lambda x: x)
+    check_input(grad=lambda x: x)
 
     # check func_val
     assert_raises(TypeError, check_input, func_val=np.array([1]))
