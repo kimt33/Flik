@@ -18,7 +18,7 @@ def test_input_control():
     # Check var vector
     direction = np.array([2., 1., 3.])
     alpha = 0.1
-    var = 3
+    var = [1]
     assert_raises(TypeError, check_input, var, func0, grad0, direction, alpha)
     var = np.array([[1., 3.],[2., 1.]])
     assert_raises(TypeError, check_input, var, func0, grad0, direction, alpha)
