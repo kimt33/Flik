@@ -7,13 +7,13 @@ def check_input(var, func, grad, direction, alpha):
 
     Parameters:
     -----------
-    var: np.array((N,1), dtype=float)
+    var: np.array((N,), dtype=float)
         Variables' current values
     func: callable
         Function :math:`f(x)`
     grad: callable
         Gradient of the function :math:`\nabla f(x)`
-    direction: np.ndarray((N,1)) for N variables
+    direction: np.ndarray((N,), dtype=float) for N variables
         Direction vector for next step
     alpha: float
         Step length
@@ -30,16 +30,16 @@ def check_input(var, func, grad, direction, alpha):
         If var and direction don't have the same shape
         If alpha is outside the interval (0., 1.]
     """
-    if isinstance(var, float):
-        var = np.array(var)
+    if isinstance(var, (int,float)):
+        var = np.array(var, dtype=float, ndim=1)
     elif not (isinstance(var, np.ndarray) and var.ndim == 1):
         raise TypeError("Variable vector should be a float or a 1-D numpy.ndarray")
     if not callable(func):
         raise TypeError("func must be callable")
     if not callable(grad):
         raise TypeError("grad must be callable")
-    if isinstance(direction, float):
-        direction = np.array(direction)
+    if isinstance(direction, (int, float)):
+        direction = np.array(direction, dtype=float, ndim=1)
     elif not (isinstance(direction, np.ndarray) and direction.ndim == 1):
         raise TypeError("The direction vector should be provided as a float or"
                         " a numpy.ndarray")
