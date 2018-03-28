@@ -4,6 +4,10 @@ import itertools as it
 import numpy as np
 
 
+class NotConvergedError(Exception):
+    """A custom exception for convergence errors."""
+
+
 def check_input(*, var=None, func=None, grad=None, hess=None, func_val=None, grad_val=None,
                 hess_val=None, step=None, maximum_trust_region_radius=None,
                 initial_trust_region_radius=None, reduction_factor_threshold=None,
