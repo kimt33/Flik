@@ -4,6 +4,7 @@ import numpy as np
 from flik.linesearch.tools import check_input
 
 
+# FIXME: produces negative alpha
 def cubic_interpolation(var, func, grad, direction, alpha_prev, alpha_current,
                         interval_begin=0, interval_end=1):
     r"""Find a next step length for functions where the gradient is not expensive to calculate.
@@ -172,8 +173,7 @@ def bs2(alpha_1, alpha_2):
 
 
 def quad_approx(func, grad, val, alpha, direction):
-    """
-    Quadratic Approximation
+    """Quadratic Approximation.
 
     Parameters
     ----------
@@ -208,13 +208,22 @@ def quad_approx(func, grad, val, alpha, direction):
     -------
     alpha_one: float
         New step length
+
     """
     # Check parameters
     check_input(var=val, func=func, grad=grad, direction=direction, alpha=alpha)
 
     # Set up functions
     phi_zero = func(val)
-    phi_zero_prime = grad(val).dot(direction)
+    grad_zero = grad(val)
+
+    # Check func and grad values
+    check_input(func_val=phi_zero)
+    # FIXME: copied over from check_input
+    if not (isinstance(grad_zero, np.ndarray) and grad_zero.ndim == 1):
+        raise TypeError('gradient value must be a one dimensional numpy array.')
+
+    phi_zero_prime = grad_zero.dot(direction)
     phi_alpha = func(val + alpha * direction)
 
     # New alpha approximation
